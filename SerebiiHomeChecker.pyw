@@ -12,23 +12,43 @@ from email.message import EmailMessage
 
 #cd C:\Users\dudeo\AppData\Local\Programs\Python\Python39
 #pyinstaller --onefile SerebiiHomeChecker.pyw
+TheConfigurationFile = 'C:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
+
 
 configTXT = 'C:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
 
 #Get email and password
 def login_info():
-    configFile = open(configTXT, 'r')
+    configFile = open(TheConfigurationFile, 'r')
     config = str(configFile.read())
     email = config.split('Email: ')
     email = email[1].split('Password: ')
     password = str(email[1].strip())
     email = str(email[0].strip()).strip()
-    return email, password
+    try:
+        server = config.split('Server: ')[1]
+        server = str(server.split('Email: ')[0].strip())
+    except:
+        print('its the server')
+    try:
+        port = config.split('Port: ')[1]
+        port = port.split('Server: ')[0].strip()
+        port = int(str(port))
+    except:
+        print('port also fucked up')
+    try:
+        app = config.split('App Pass: ')[1]
+        app = app.split('Port: ')[0].strip()
+        app = str(app)
+    except:
+        print('port also fucked up')
+    configFile.close()
+    return email, password, server, port, app
 
 
 #email function
 def email(sites):
-    myEmail, myPass = login_info()
+    myEmail, myPass, theServer, thePort, theAppPassword = login_info()
     configFile = open(configTXT, 'r')
     raw_emails = configFile.readlines()
     configFile.close()
@@ -64,8 +84,8 @@ def email(sites):
             the_emails.append(raw_emails[i])
             print(the_emails[i])
     try:
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login(myEmail, myPass)
+        server = smtplib.SMTP_SSL(theServer, thePort)
+        server.login(myEmail, theAppPassword)
         msge = EmailMessage()
         msge.set_content(sites)
         server.send_message(msge, from_addr=myEmail, to_addrs=myEmail)
@@ -81,8 +101,8 @@ def email(sites):
         logger.close()
     for i in range(0, len(the_emails), 1):
         try:
-            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-            server.login(myEmail, myPass)
+            server = smtplib.SMTP_SSL(theServer, thePort)
+            server.login(myEmail, theAppPassword)
             msge = EmailMessage()
             msge.set_content(sites)
             server.send_message(msge, from_addr=myEmail, to_addrs=str(the_emails[i]))
@@ -102,6 +122,7 @@ def email(sites):
 #pokemon checker
 def Pokemon(counter, past):
     s = past
+    #s = 9
     #get the sites from the configuration file
     serebii_site = 'https://www.serebii.net/'
     print(serebii_site)
