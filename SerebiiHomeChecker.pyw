@@ -162,6 +162,8 @@ def Pokemon(counter, past):
                 sendEmail = 0
         elif bs_response.__contains__('The Pokémon Company'):
             sendEmail = 1
+        elif bs_response.__contains__('Direct'):
+            sendEmail = 1
         else:
             sendEmail = 0
         #sendEmail = 1 # comment out this line
