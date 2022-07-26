@@ -154,6 +154,9 @@ def Pokemon(counter, past):
         s = bs_response
         if bs_response.__contains__('In The Games'):
             if bs_response.__contains__('news') or bs_response.__contains__('istribution'):
+                if bs_response.__contains__('mon GO'):
+                    if bs_response.__contains__('Diancie') or bs_response.__contains__('Volcanion') or bs_response.__contains__('Deoxys'):
+                        sendEmail = 1
                 if bs_response.__contains__('asters E') or bs_response.__contains__('mon GO') or bs_response.__contains__('mon UNIT') or bs_response.__contains__('Caf') or bs_response.__contains__('mon Smil'):
                     sendEmail = 0
                 else:
@@ -165,6 +168,8 @@ def Pokemon(counter, past):
         elif bs_response.__contains__('Direct'):
             sendEmail = 1
         else:
+            sendEmail = 0
+        if bs_response.__contains__('TCG') or bs_response.__contains__('ards D'):
             sendEmail = 0
         #sendEmail = 1 # comment out this line
     if counter > 0:
