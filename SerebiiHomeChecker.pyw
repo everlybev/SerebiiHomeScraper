@@ -151,6 +151,8 @@ def Pokemon(counter, past):
         sendEmail = 0
         #sendEmail = 1 # comment out this line
     else:
+        ignore = 0
+        sendEmail = 0
         s = bs_response
         if bs_response.__contains__('In The Games'):
             if bs_response.__contains__('news') or bs_response.__contains__('istribution'):
@@ -159,6 +161,7 @@ def Pokemon(counter, past):
                         sendEmail = 1
                 if bs_response.__contains__('asters E') or bs_response.__contains__('mon GO') or bs_response.__contains__('mon UNIT') or bs_response.__contains__('Caf') or bs_response.__contains__('mon Smil'):
                     sendEmail = 0
+                    ignore = 1
                 else:
                     sendEmail = 1
             else:
@@ -171,6 +174,31 @@ def Pokemon(counter, past):
             sendEmail = 0
         if bs_response.__contains__('TCG') or bs_response.__contains__('ards D'):
             sendEmail = 0
+            ignore = 1
+        #Check for special temporary key words
+        if (sendEmail == 0) and (ignore == 0):
+            spot = 0
+            separatorIs = [5, 9]
+            logger = open(configTXT, 'r')
+            desiredInfoSeparators = '|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n'
+            desiredLines = logger.readlines()
+            #print(desiredLines)
+            for i in range(10, len(desiredLines)):
+                if desiredLines[i] == desiredInfoSeparators:
+                    separatorIs[spot] = i
+                    spot = spot + 1
+                    if spot == 3:
+                        i = 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2
+            i = 0
+            for i in range(separatorIs[0]+1, separatorIs[1]):
+                #print(i)
+                line_no_space = desiredLines[i].split('\n')[0]
+                line_no_space = line_no_space.strip()
+                if bs_response.__contains__(line_no_space):
+                    #print(desiredLines[i])
+                    sendEmail = 1
+                    i = 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2
+                    
         #sendEmail = 1 # comment out this line
     if counter > 0:
         if sendEmail == 1:
