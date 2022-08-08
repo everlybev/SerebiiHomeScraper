@@ -165,10 +165,13 @@ def Pokemon(counter, past):
                 else:
                     sendEmail = 1
             else:
+                if bs_response.__contains__('asters E') or bs_response.__contains__('mon UNIT') or bs_response.__contains__('Caf') or bs_response.__contains__('mon Smil'):
+                    sendEmail = 0
+                    ignore = 1
                 sendEmail = 0
         elif bs_response.__contains__('The Pokémon Company'):
             sendEmail = 1
-        elif bs_response.__contains__('Direct'):
+        elif bs_response.__contains__('Direct') or bs_response.__contains__('Present'):
             sendEmail = 1
         else:
             sendEmail = 0
