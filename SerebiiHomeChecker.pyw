@@ -20,7 +20,7 @@ configTXT = 'F:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\
 def better_sleep(time2wait):
     start = time.time()
     while((time.time()-start)<time2wait-.00042):
-        pass
+        time.sleep(1)
 #Get email and password
 def login_info():
     configFile = open(TheConfigurationFile, 'r')
