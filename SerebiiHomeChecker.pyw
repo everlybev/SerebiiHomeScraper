@@ -10,13 +10,17 @@ import secrets
 from email.message import EmailMessage
 
 
-#cd C:\Users\dudeo\AppData\Local\Programs\Python\Python39
+#cd F:\Users\dudeo\AppData\Local\Programs\Python\Python39
 #pyinstaller --onefile SerebiiHomeChecker.pyw
-TheConfigurationFile = 'C:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
+TheConfigurationFile = 'F:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
 
 
-configTXT = 'C:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
+configTXT = 'F:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
 
+def better_sleep(time2wait):
+    start = time.time()
+    while((time.time()-start)<time2wait-.00042):
+        pass
 #Get email and password
 def login_info():
     configFile = open(TheConfigurationFile, 'r')
@@ -91,7 +95,7 @@ def email(sites):
         server.send_message(msge, from_addr=myEmail, to_addrs=myEmail)
         server.quit()
     except:
-        time.sleep(1)
+        better_sleep(1)
         logger = open('Pokemon.txt', 'a')
         now = datetime.now()
         dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
@@ -108,7 +112,7 @@ def email(sites):
             server.send_message(msge, from_addr=myEmail, to_addrs=str(the_emails[i]))
             server.quit()
         except:
-            time.sleep(1)
+            better_sleep(1)
             logger = open('Pokemon.txt', 'a')
             now = datetime.now()
             dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
@@ -273,11 +277,11 @@ def main():
                     logger.close()
                 past = today
                 daycount = daycount + 1
-        time.sleep(secrets.randbelow(7))
+        better_sleep(secrets.randbelow(7))
         count = count + 1
         #print(count)
 
-        time.sleep(8)
+        better_sleep(8)
         
 if __name__ == '__main__':
     main()
