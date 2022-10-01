@@ -147,7 +147,7 @@ def Pokemon(counter, past):
         logger.close()
     bs_response = BeautifulSoup(response.text, "lxml")
     bs_response = bs_response.body.main.find(class_='subcat').getText()
-    print(bs_response)
+    #print(bs_response)
     bs_response = str(bs_response)
     if bs_response == s:
         #there was not change to the site
@@ -169,7 +169,7 @@ def Pokemon(counter, past):
                 else:
                     sendEmail = 1
             else:
-                if bs_response.__contains__('asters E') or bs_response.__contains__('mon UNIT') or bs_response.__contains__('Caf') or bs_response.__contains__('mon Smil'):
+                if bs_response.__contains__('asters E') or bs_response.__contains__('mon UNIT') or bs_response.__contains__('Caf') or bs_response.__contains__('mon Smil') or bs_response.__contains__('VGC Ruleset'):
                     sendEmail = 0
                     ignore = 1
                 sendEmail = 0
@@ -209,6 +209,7 @@ def Pokemon(counter, past):
         #sendEmail = 1 # comment out this line
     if counter > 0:
         if sendEmail == 1:
+            #print('sending email')
             email(str(msg))
             logger = open('Pokemon.txt', 'a')
             now = datetime.now()
@@ -218,6 +219,7 @@ def Pokemon(counter, past):
             logger.write('New Info!\n')
             logger.close()
         else:
+            #print('not sending email')
             logger = open('Pokemon.txt', 'a')
             now = datetime.now()
             dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
