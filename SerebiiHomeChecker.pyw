@@ -125,7 +125,7 @@ def email(sites):
 
 #pokemon checker
 def Pokemon(counter, past):
-    s = past
+    s = str(past)
     #s = 9
     #get the sites from the configuration file
     serebii_site = 'https://www.serebii.net/'
@@ -147,8 +147,12 @@ def Pokemon(counter, past):
         logger.close()
     bs_response = BeautifulSoup(response.text, "lxml")
     bs_response = bs_response.body.main.find(class_='subcat').getText()
-    #print(bs_response)
+    print(bs_response)
     bs_response = str(bs_response)
+    stripped_bs_response = bs_response.replace(s, '')
+    original_bs_response = str(bs_response)
+    print('----------')
+    print(stripped_bs_response)
     if bs_response == s:
         #there was not change to the site
         s = bs_response
@@ -157,6 +161,7 @@ def Pokemon(counter, past):
     else:
         ignore = 0
         sendEmail = 0
+        bs_response = str(stripped_bs_response)
         s = bs_response
         if bs_response.__contains__('In The Games'):
             if bs_response.__contains__('news') or bs_response.__contains__('istribution'):
@@ -200,9 +205,9 @@ def Pokemon(counter, past):
             for i in range(separatorIs[0]+1, separatorIs[1]):
                 #print(i)
                 line_no_space = desiredLines[i].split('\n')[0]
-                line_no_space = line_no_space.strip()
+                line_no_space = line_no_space.rstrip()
                 if bs_response.__contains__(line_no_space):
-                    #print(desiredLines[i])
+                    print(line_no_space)
                     sendEmail = 1
                     i = 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2
                     
@@ -238,6 +243,7 @@ def Pokemon(counter, past):
         pastsoup = s
     msg = 'Go to: '
     sendEmail = 0
+    s = original_bs_response
     return s
 
 
