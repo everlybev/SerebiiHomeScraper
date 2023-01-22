@@ -184,6 +184,9 @@ def Pokemon(counter, past):
             sendEmail = 1
         elif bs_response.__contains__('Direct') or bs_response.__contains__('Present'):
             sendEmail = 1
+        elif bs_response.__contains__('s That Pok') and bs_response.__contains__('Who') and bs_response.__contains__('mon'):
+            sendEmail = 0
+            ignore = 1
         else:
             sendEmail = 0
         if bs_response.__contains__('TCG') or bs_response.__contains__('ards D'):
