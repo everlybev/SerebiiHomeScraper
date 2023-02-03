@@ -294,7 +294,7 @@ def main():
         count = count + 1
         #print(count)
 
-        better_sleep(28)
+        time.sleep(68)
         
 if __name__ == '__main__':
     main()
