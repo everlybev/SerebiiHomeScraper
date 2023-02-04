@@ -145,14 +145,26 @@ def Pokemon(counter, past):
         logger.write(dt_string + '\n')
         logger.write(str('serebii got response'))
         logger.close()
-    bs_response = BeautifulSoup(response.text, "lxml")
-    bs_response = bs_response.body.main.find(class_='subcat').getText()
-    print(bs_response)
-    bs_response = str(bs_response)
-    stripped_bs_response = bs_response.strip()
-    stripped_bs_response = bs_response.replace(s, '')
-    stripped_bs_response = stripped_bs_response.strip()
-    original_bs_response = str(bs_response)
+    try:
+        bs_response = BeautifulSoup(response.text, "lxml")
+        bs_response = bs_response.body.main.find(class_='subcat').getText()
+        print(bs_response)
+        bs_response = str(bs_response)
+        stripped_bs_response = bs_response.strip()
+        stripped_bs_response = bs_response.replace(s, '')
+        stripped_bs_response = stripped_bs_response.strip()
+        original_bs_response = str(bs_response)
+    except:
+        bs_response = 'The serebii.com home page seems down'
+        stripped_bs_response = bs_response
+        original_bs_response = bs_response
+        logger = open('Pokemon.txt', 'a')
+        now = datetime.now()
+        dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
+        logger.write('\n')
+        logger.write(dt_string + '\n')
+        logger.write(str('serebii.com home page is probably down'))
+        logger.close()
     print('----------')
     print(stripped_bs_response)
     if bs_response == s:
