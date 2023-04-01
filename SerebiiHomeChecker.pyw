@@ -228,10 +228,10 @@ def Pokemon(counter, past):
                     sendEmail = 1
                     i = 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2
                     
-        #sendEmail = 1 # comment out this line
+    #sendEmail = 1 # comment out this line
     if counter > 0:
         if sendEmail == 1:
-            #print('sending email')
+            print('sending email')
             email(str(msg))
             logger = open('Pokemon.txt', 'a')
             now = datetime.now()
@@ -290,23 +290,24 @@ def main():
             else:
                 try:
                     past_soup = Pokemon(count, past_soup)
-                except:
-                    msg = 'There was a main() error on home. Maybe check serebii'
+                except Exception as errrrr:
+                    msg = 'There was a main() error on home. Maybe check serebii\n{}'.format(errrrr)
                     email(msg)
                     logger = open('Pokemon.txt', 'a')
                     now = datetime.now()
                     dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
                     logger.write('\n')
                     logger.write(dt_string + '\n')
-                    logger.write('There was a main() error on home serebii. \n' + '\n')
+                    logger.write('There was a main() error on home serebii. \n{}' + '\n').format(errrrr)
                     logger.close()
                 past = today
                 daycount = daycount + 1
-        better_sleep(secrets.randbelow(27))
+        delay_one = secrets.randbelow(27)
+        better_sleep(delay_one)
         count = count + 1
-        #print(count)
+        print(count)
 
-        time.sleep(68)
+        time.sleep(secrets.randbelow(68-delay_one))
         
 if __name__ == '__main__':
     main()
