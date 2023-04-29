@@ -291,7 +291,7 @@ def main():
                 try:
                     past_soup = Pokemon(count, past_soup)
                 except Exception as errrrr:
-                    msg = 'There was a main() error on home. Maybe check serebii\n{}'.format(errrrr)
+                    msg = 'There was a main() error on home but fear not for Arceus is on it. Maybe check serebii\n{}'.format(errrrr)
                     email(msg)
                     logger = open('Pokemon.txt', 'a')
                     now = datetime.now()
