@@ -18,9 +18,8 @@ TheConfigurationFile = 'F:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Pyth
 configTXT = 'F:\\Users\\dudeo\\AppData\\Local\\Programs\\Python\\Python39\\dist\\Config.txt'
 
 def better_sleep(time2wait):
-    start = time.time()
-    while((time.time()-start)<time2wait-.00042):
-        time.sleep(1)
+    time.sleep(time2wait)
+    
 #Get email and password
 def login_info():
     configFile = open(TheConfigurationFile, 'r')
