@@ -134,15 +134,20 @@ def Pokemon(counter, past):
     try:
         response = requests.get(serebii_site)
         site = str(response)
-    except:
+        error = ''
+    except Exception error:
         site = 'Fucked'
+        error = str(error)
+    logger = open('Pokemon.txt', 'a')
+    now = datetime.now()
+    dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
+    logger.write('\n')
+    logger.write(dt_string + '\n')
     if site != "Fucked":
-        logger = open('Pokemon.txt', 'a')
-        now = datetime.now()
-        dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
-        logger.write('\n')
-        logger.write(dt_string + '\n')
         logger.write(str('serebii got response'))
+        logger.close()
+     else:
+        logger.write(str('serebii did not get a response\n'+error))
         logger.close()
     try:
         bs_response = BeautifulSoup(response.text, "lxml")
@@ -153,7 +158,9 @@ def Pokemon(counter, past):
         stripped_bs_response = bs_response.replace(s, '')
         stripped_bs_response = stripped_bs_response.strip()
         original_bs_response = str(bs_response)
-    except:
+    except Exception as err:
+        err = str(err)
+        print('BS Response Error: '+err)
         bs_response = 'The serebii.com home page seems down'
         stripped_bs_response = bs_response
         original_bs_response = bs_response
@@ -162,7 +169,7 @@ def Pokemon(counter, past):
         dt_string = now.strftime("%m/%d/%Y %I:%M:%S %p")
         logger.write('\n')
         logger.write(dt_string + '\n')
-        logger.write(str('serebii.com home page is probably down'))
+        logger.write(str('serebii.com home page is probably down\n{}'.format(err)))
         logger.close()
     print('----------')
     print(stripped_bs_response)
